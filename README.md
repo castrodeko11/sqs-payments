@@ -11,4 +11,5 @@ aws sqs send-message --endpoint-url http://localhost:4566 --queue-url http://loc
 
 # Read Message
 #Note -> run command in directory with file ${message.json}
+
 aws sqs receive-message --endpoint-url http://localhost:4566 --queue-url http://localhost:4566/000000000000/teste --attribute-names All --message-attribute-names All  --profile localstack

@@ -1,0 +1,13 @@
+server:
+  port : 8081
+
+aws:
+  region: us-east-1
+  access_key_id: test
+  secret_key_id: test
+
+app:
+  config:
+    message:
+      queue:
+        topic:  tax-payments

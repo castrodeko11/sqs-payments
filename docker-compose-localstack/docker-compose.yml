@@ -1,0 +1,33 @@
+version: '3.0'
+
+services:
+  localstack:
+    image: localstack/localstack:latest
+    environment:
+      - SERVICES=sqs,sns
+      - AWS_DEFAULT_REGION=eu-central-1
+      - EDGE_PORT=4566
+    ports:
+      - '4566-4597:4566-4597'
+    volumes:
+      - "${LOCALSTACK_VOLUME_DIR:-./volume}:/var/lib/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    networks:
+      - localstask-compose-network
+
+networks:
+  localstask-compose-network:
+    driver: bridge
+
+# Create-queue
+# aws sqs create-queue --endpoint-url http://localhost:4566 --queue-name tax-payments --profile localstack
+
+# List-queues
+# aws sqs list-queues --endpoint-url http://localhost:4566 --profile localstack
+
+# Send-message
+# aws sqs send-message --endpoint-url http://localhost:4566 --queue-url http://localhost:4566/000000000000/tax-payments --message-body "Mensagem de Teste" --message-attributes file://./message.json --profile localstack
+
+# Read Message
+# Note -> run command in directory with file ${message.json}
+# aws sqs receive-message --endpoint-url http://localhost:4566 --queue-url http://localhost:4566/000000000000/teste --attribute-names All --message-attribute-names All  --profile localstack

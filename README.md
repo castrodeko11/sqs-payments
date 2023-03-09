@@ -1,7 +1,7 @@
 ﻿# sqs-payments
 
 # Create-queue
-# aws sqs create-queue --endpoint-url http://localhost:4566 --queue-name tax-payments --profile localstack
+aws sqs create-queue --endpoint-url http://localhost:4566 --queue-name tax-payments --profile localstack
 
 # List-queues
 aws sqs list-queues --endpoint-url http://localhost:4566 --profile localstack

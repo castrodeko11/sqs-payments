@@ -5,6 +5,8 @@ aws:
   region: us-east-1
   access_key_id: test
   secret_key_id: test
+  sqs:
+    endpoint: ${ENV_SQS_HOST:localhost:4566}
 
 app:
   config:

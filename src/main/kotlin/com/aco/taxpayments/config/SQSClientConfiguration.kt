@@ -1,7 +1,9 @@
 package com.aco.taxpayments.config
 
+import com.amazonaws.SDKGlobalConfiguration
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.client.builder.AwsClientBuilder
 import com.amazonaws.regions.Regions
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClientBuilder;
@@ -13,6 +15,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class SQSClientConfiguration {
 
+    @Value("\${aws.sqs.endpoint}")
+    private val endpoint: String? = null
+
     @Value("\${aws.access_key_id}")
     private val awsAccessKeyId: String? = null
 
@@ -20,14 +25,16 @@ class SQSClientConfiguration {
     private val awsSecretKeyId: String? = null
 
     @Value("\${aws.region}")
-    private val awsRegion: String? = null
+    private val region: String? = null
 
     @Bean
     fun amazonSQSClient(): AmazonSQS? {
-        val awsCredentials =
-            BasicAWSCredentials(awsAccessKeyId, awsSecretKeyId)
-        return AmazonSQSClientBuilder.standard()
-            .withCredentials(AWSStaticCredentialsProvider(awsCredentials))
-            .withRegion(Regions.US_EAST_1).build()
+        System.setProperty(SDKGlobalConfiguration.DISABLE_CERT_CHECKING_SYSTEM_PROPERTY, "true")
+
+        return AmazonSQSClientBuilder
+            .standard()
+            .withEndpointConfiguration(AwsClientBuilder.EndpointConfiguration(endpoint, region))
+            .withCredentials(AWSStaticCredentialsProvider(BasicAWSCredentials(awsAccessKeyId, awsSecretKeyId)))
+            .build()
     }
 }

@@ -17,7 +17,6 @@ repositories {
 
 dependencies {
 
-    implementation("org.projectlombok:lombok:1.18.26")
     implementation ("com.amazonaws:aws-java-sdk-sqs:1.12.349")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")

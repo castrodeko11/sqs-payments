@@ -13,19 +13,19 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-class SQSClientConfiguration {
-
+class SQSClientConfiguration(
     @Value("\${aws.sqs.endpoint}")
-    private val endpoint: String? = null
+    val endpoint: String,
 
     @Value("\${aws.access_key_id}")
-    private val awsAccessKeyId: String? = null
+    val awsAccessKeyId: String,
 
     @Value("\${aws.secret_key_id}")
-    private val awsSecretKeyId: String? = null
+    val awsSecretKeyId: String,
 
     @Value("\${aws.region}")
-    private val region: String? = null
+    val region: String,
+) {
 
     @Bean
     fun amazonSQSClient(): AmazonSQS? {

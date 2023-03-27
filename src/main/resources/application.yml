@@ -1,15 +1,17 @@
 server:
-  port : 8081
+  port : 8085
 
-aws:
-  region: us-east-1
-  access_key_id: test
-  secret_key_id: test
-  sqs:
-    endpoint: ${ENV_SQS_HOST:localhost:4566}
-
-app:
-  config:
-    message:
-      queue:
-        topic:  tax-payments
+cloud:
+  aws:
+    region:
+      static: us-east-1
+      use-default-aws-region-chain: true
+      auto: false
+    stack:
+      auto: false
+    credentials:
+      access-key: test
+      secret-key: test
+    queue:
+      endpoint: http://localhost:4566
+      tax-payments: tax-payments

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/queue")
 class QueueController(
-
-    @Value("\${cloud.aws.queue.endpoint}") private val queueEndpoint: String,
     @Value("\${cloud.aws.queue.tax-payments}") private val queueName: String,
     var sqsClientAsycs: AmazonSQSAsync
 ) {
@@ -20,7 +18,7 @@ class QueueController(
 
         val sendMessageStandardQueue = SendMessageRequest()
             .withMessageBody(message)
-            .withQueueUrl("$queueEndpoint$queueName")
+            .withQueueUrl("$queueName")
 
         val result = sqsClientAsycs.sendMessage(sendMessageStandardQueue)
 
